@@ -1,3 +1,9 @@
+先公开1.0的版本
+
+[web敏感资产fuzz](http://www.cnnetarmy.com/web%E6%95%8F%E6%84%9F%E8%B5%84%E4%BA%A7fuzz/)
+
+下面是2.0的介绍
+
 ## 目前支持的功能
 
 ```
