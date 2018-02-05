@@ -5,7 +5,10 @@ lock = threading.Lock()
 
 def GetQueue(host):
     PortQueue = Queue.Queue()
-    for port in range(1,65535):
+    ports = [11211,27017]
+    for port_list in range(1,10000):
+        ports.append(port_list)
+    for port in ports:
         PortQueue.put((host,port))
     return PortQueue
 
@@ -28,9 +31,8 @@ class ScanThread(threading.Thread):
             return False
         sock.close()
         if lock.acquire():
-            print "[+] Get IP:%s  Port:%d open" % (scanIP, Port)
+            print "[+] Get IP:%s  Port:%s open" % (scanIP, str(Port))
             self.outip.put(Port)
-            #self.outip.put(self.get_port_service(Port))
             lock.release()
         return True
 
@@ -48,7 +50,7 @@ class Work(object):
         ThreadList = []
         SingleQueue = GetQueue(self.target)
         resultQueue = Queue.Queue()
-        for i in range(0, 150):
+        for i in range(0, 500):
             t = ScanThread(SingleQueue,resultQueue)
             ThreadList.append(t)
         for t in ThreadList:
@@ -61,5 +63,5 @@ class Work(object):
             data.append(line)
         return data
 
-#t = Work(scan_target = "43.242.128.230")#,back_fn = save)
+#t = Work(scan_target = "176.28.50.165")#43.242.128.230
 #print t.run()
