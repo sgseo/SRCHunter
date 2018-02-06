@@ -1,8 +1,10 @@
-先公开1.0的版本,项目保存在[webmain1.0](https://github.com/cnnetarmy/SRCHunter/tree/webmain1.0)分支
+先公开1.0的版本，项目保存在[webmain1.0](https://github.com/cnnetarmy/SRCHunter/tree/webmain1.0)分支
 
 1.0介绍：[web敏感资产fuzz](http://www.cnnetarmy.com/web%E6%95%8F%E6%84%9F%E8%B5%84%E4%BA%A7fuzz/)
 
-下面是2.0的介绍
+关于1.0和2.0的区别请看[commit日志](https://github.com/cnnetarmy/SRCHunter/commits/master)
+
+下面是2.0的介绍，暂不公开
 
 ## 目前支持的功能
 
@@ -111,7 +113,7 @@ C段扫描：  python webmain.py -cd 192.168.1.1       -->  C scan  Portscan && 
 
 判断条件是返回200，且返回内容大小不等于0，且payload与404界面的返回大小差的绝对值大于5(或者直接两者返回大小不相等)，
 
-程序改版了之前的附加判断条件`如果碰到waf，或者各种非预期的情况，导致跑的payloads返回大于40，这种情况程序会提示有可能碰到waf，并且返回空`,
+程序改版了之前的附加判断条件`如果碰到waf，或者各种非预期的情况，导致跑的payloads返回大于40，这种情况程序会提示有可能碰到waf，并且返回空`，
 
 进而增加`探针计数器`，计算结果个数，如果扫描结果很快超过25个，程序会直接结束此次扫描，节省时间，提高效率，
 
@@ -119,13 +121,13 @@ C段扫描：  python webmain.py -cd 192.168.1.1       -->  C scan  Portscan && 
 
 关于结果中的`Dirscan`是`常用payloads集合扫描`和`多级目录敏感资产扫描`结果去重后的`并集`，
 
-如果出现`['waf']`，表示程序`常用payloads集合扫描结果`达到程序设置的默认阀值，
+如果出现`['waf']`，表示`常用payloads集合扫描结果`达到程序设置的默认阀值，
 
-如果出现`['more_path']`，表示程序`多级目录敏感资产扫描结果`达到程序设置的默认阀值，
+如果出现`['more_path']`，表示`多级目录敏感资产扫描结果`达到程序设置的默认阀值，
 
-其他的情况，可直接点击查看验证结果,
+其他的情况，可直接点击查看验证结果，
 
-Allinks中，如果提示`[more_link]`，意味着页面存在者`10`个以上的超链接，默认只显示`前25`个字符，直接点击，则可显示详情
+Allinks中，如果提示`[more_link]`，意味着页面存在`10`个以上的超链接，默认只显示`前25`个字符，直接点击，则可显示详情
 
 ### C段探测
 
@@ -152,7 +154,6 @@ Allinks中，如果提示`[more_link]`，意味着页面存在者`10`个以上�
 - `write_file(ip,'portscan_error')`    记录单个目标扫描出开放90个端口以上的ip
 - `write_file(url,'url2ip_error')`     记录单个目标未获取到ip的url
 - `write_file(url,'output_error')`     记录保存文件时参数编码不合法的url
-- `write_file(newurl,'output_error')`  记录保存文件时参数编码不合法的url
 
 ## 结果保存
 
