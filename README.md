@@ -1,14 +1,8 @@
-先公开1.0的版本，项目保存在[webmain1.0](https://github.com/cnnetarmy/SRCHunter/tree/webmain1.0)分支
-
-1.0介绍：[web敏感资产fuzz](http://www.cnnetarmy.com/web%E6%95%8F%E6%84%9F%E8%B5%84%E4%BA%A7fuzz/)
-
-关于1.0和2.0的区别请看[commit日志](https://github.com/cnnetarmy/SRCHunter/commits/master)
-
-下面是2.0的介绍，暂不公开
 
 ## 目前支持的功能
 
 ```
+全自动扫描: python webmain.py -a  target.com        -->  baidu_site && port/dir scan
 
 单目标扫描：python webmain.py -u  http://127.0.0.1  -->  webscan Portscan && scanDir
 
@@ -21,6 +15,13 @@ C段探测：  python webmain.py -cf 192.168.1.1       -->  C scan  not scanDir
 C段扫描：  python webmain.py -cd 192.168.1.1       -->  C scan  Portscan && scanDir
 
 ```
+1.0的版本，项目保存在[webmain1.0](https://github.com/cnnetarmy/SRCHunter/tree/webmain1.0)分支
+
+1.0介绍：[web敏感资产fuzz](http://www.cnnetarmy.com/web%E6%95%8F%E6%84%9F%E8%B5%84%E4%BA%A7fuzz/)
+
+关于1.0和2.0的区别请看[commit日志](https://github.com/cnnetarmy/SRCHunter/commits/master)
+
+下面是2.0的介绍
 
 ## 项目地址
 
@@ -40,7 +41,13 @@ C段扫描：  python webmain.py -cd 192.168.1.1       -->  C scan  Portscan && 
 
 **可跨平台使用**
 
-### 单目标
+### 全自动扫描
+
+全自动扫描，默认仅加载百度搜索引擎`site:target.com`，生成目标池，进行部分端口扫描、敏感资产和目录扫描功能，详细同理多目标扫描
+
+**命令**：`python webmain_debug.py -a target.com`
+
+### 单目标扫描
 
 单目标扫描模式默认，加载敏感资产和目录扫描功能，例如：http://testphp.vulnweb.com/
 
@@ -71,6 +78,7 @@ C段扫描：  python webmain.py -cd 192.168.1.1       -->  C scan  Portscan && 
 ![](./img/debug_detial_result.jpg)
 
 结果保存在**report**目录
+
 
 ### 多目标探测
 
@@ -127,7 +135,9 @@ C段扫描：  python webmain.py -cd 192.168.1.1       -->  C scan  Portscan && 
 
 其他的情况，可直接点击查看验证结果，
 
-Allinks中，如果提示`[more_link]`，意味着页面存在`10`个以上的超链接，默认只显示`前25`个字符，直接点击，则可显示详情
+Allinks中，如果提示`[more_link]`，意味着页面存在`10`个以上的超链接，
+
+默认只显示`前25`个字符，直接点击，则可显示详情
 
 ### C段探测
 
@@ -162,6 +172,12 @@ Allinks中，如果提示`[more_link]`，意味着页面存在`10`个以上的�
 关于扫描出开放的所有端口，`根据扫描参数`分别保存为`csv`文件，一些特殊端口保存为eg：`mysql_3306.txt`
 
 异常处理保存
+
+linux下建议使用`nohup python webmain_debug.py -d targets.txt &`后台运行，扫描日志见`nohup.out`，结果同上
+
+## 免责声明
+
+`本程序仅供渗透测试从业人员，在授权的情况下参考使用，其他情况使用者自行承担法律责任，与作者无关`
 
 ## bug反馈
 
