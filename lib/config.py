@@ -159,14 +159,7 @@ sub_filter_file = '/sub_filter.txt'
 github_account = ''# srchunter
 
 # Github logged in cookie
-github_cookie = '_ga=GA1.2.605058324.1525746109; _octo=GH1.1.1636350760.1525746110; _gat=1; \
-tz=Asia%2FShanghai; user_session=cEznaHgVk-tieVAXWimhPQ_H9XP7q8D_ZcoJ40GqQ-gWd2ya; \
-__Host-user_session_same_site=cEznaHgVk-tieVAXWimhPQ_H9XP7q8D_ZcoJ40GqQ-gWd2ya; logged_in=yes; \
-dotcom_user=opayload; _gh_sess=RDVVcUwzUmdLOXZxdFlCalhRbzhNMkg3S0wrZXhsWktmQ3N0cExENTdnRnRJU3V0\
-d0R0Z3hkV3JwdUtHRTNxdWVQUWRHMUdhNG1VK1B2YjZPOHVVVkhXNUc3Q0wxdzFZbHZ4SVo5b2l5eThBRC9OREFyVUtqWm9\
-lOUFkRzRMdEttUzUxWHFaalZDVlg5YkFlQUVnUk5XRnljWGJuN3ZjVjFFT3I1MEhJT2pFZi9ESFlmbkZzUlIzdG9pRTFNWX\
-pNeUJ4bFdacDl2d01aL1VwQVVEQkd1eEgrMmFOSDgwTXFja0ppbEJCdkhMOD0tLUV3YXZ0Z3dIQnpMbHl4dnQzSS9PN2c9P\
-Q%3D%3D--198ff900cd43a9c8672a6c712fe166f37a79301d'
+github_cookie = ''
 
 # Report Dirscan data
 str_d = '''
