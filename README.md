@@ -1,186 +1,115 @@
 
-## 目前支持的功能
+SRCHunter，中文名字"赏金猎人"，一款适合信息安全从业者前期信息收集的扫描器，整合渗透测试经验，把重复性工作模块化、系统化、自动化，适合外围打点人员、蓝军使用，行动代号"opSRC"。
 
-```
-全自动扫描: python webmain.py -a  target.com        -->  baidu_site && port/dir scan
+## 功能
 
-单目标扫描：python webmain.py -u  http://127.0.0.1  -->  webscan Portscan && scanDir
-
-多目标探测：python webmain.py -f  vuln_domains.txt  -->  webscan not scanDir
-
-多目标扫描：python webmain.py -d  vuln_domains.txt  -->  webscan Portscan && scanDir
-
-C段探测：  python webmain.py -cf 192.168.1.1       -->  C scan  not scanDir
-
-C段扫描：  python webmain.py -cd 192.168.1.1       -->  C scan  Portscan && scanDir
-
-```
-1.0的版本，项目保存在[webmain1.0](https://github.com/cnnetarmy/SRCHunter/tree/webmain1.0)分支
-
-1.0介绍：[web敏感资产fuzz](http://www.cnnetarmy.com/web%E6%95%8F%E6%84%9F%E8%B5%84%E4%BA%A7fuzz/)
-
-关于1.0和2.0的区别请看[commit日志](https://github.com/cnnetarmy/SRCHunter/commits/master)
-
-下面是2.0的介绍
-
-## 项目地址
-
-**Github**：https://github.com/cnnetarmy/SRCHunter
-
-**运行环境**：python2.6.x或者python2.7.x
-
-**依赖第三方库**：pip install requests[security]
-
-## 程序介绍
-
-**扫描参数不区分大小写和顺序**
-
-**默认代理关闭**
-
-**随机无序扫描验证**
-
-**可跨平台使用**
-
-### 全自动扫描
-
-全自动扫描，默认仅加载百度搜索引擎`site:target.com`，生成目标池，进行部分端口扫描、敏感资产和目录扫描功能，详细同理多目标扫描
-
-**命令**：`python webmain_debug.py -a target.com`
-
-### 单目标扫描
-
-单目标扫描模式默认，加载敏感资产和目录扫描功能，例如：http://testphp.vulnweb.com/
-
-**命令**：`python webmain_debug.py -u http://testphp.vulnweb.com/`
-
-**扫描日志**
-
-![](./img/debug_log.jpg)
-
-**端口扫描**
-
-程序只扫`11211`，`27017`和`小于10000`的端口
-
-扫描结果如下：
-
-![](./img/portscan_result.jpg)
-
-程序会自动过滤掉常规端口
-
-![](./img/special_openport.jpg)
-
-**扫描结果**
-
-![](./img/debug_result.jpg)
-
-**结果介绍**
-
-![](./img/debug_detial_result.jpg)
-
-结果保存在**report**目录
-
-
-### 多目标探测
-
-**命令**：`python webmain_debug.py -f vuln_domains.txt`
-
-**使用介绍**：
-
-快速探测，实现url转ip后，进行部分端口扫描，并且对每一个开放的端口进行存活探测，
-
-如果存活，进行`getitle`信息探测，小细节是加了个`filter_ports`，过滤掉常规端口，
-
-考虑到一种情况(旁站)，多个url解析到一个ip上，程序加了`filter_ips`过滤已经扫描过端口的ip，
-
-同时，如果各种非预期的情况导致扫描`scheme://netloc`重复，程序加入`filter_urls`过滤已经扫描过的任务，
-
-程序还考虑到了一种情况，即：当url传过来的是存活，而且没有扫描出开放的端口，程序会自动探测default端口的信息，
-
-包括另外一种情况，当url传过来的非存活，但是扫描出其他开放的端口，程序会自动探测相应端口的信息，
-
-**程序仅端口扫描，获取目标站点title，状态码，返回值长度，包括可能存在的合法ip地址，email资产信息**，
-
-但是`不探测解析到内网的ip`，黑名单列表如下：
-
-```
-10.x.x.x
-127.x.x.x
-172.x.x.x
-192.168.x.x
+```python
+python cli.py -s target | 搜索目标文件
+python cli.py -a target.com | 自动收集子域名扫描
+python cli.py -u http://www.target.com | 单目标扫描
+python cli.py -f targets.txt | 多目标探测
+python cli.py -d targets.txt | 多目标扫描
+python cli.py -fu http://www.target.com | 单目标(-端口)扫描
+python cli.py -fd targets.txt | 多目标(-端口)扫描
+python cli.py -cf x.x.x.x | C段探测
+python cli.py -cd x.x.x.x | C段扫描
+python cli.py -cl targets.txt | 多目标C段扫描
 ```
 
-### 多目标扫描
+更多见`python cli.py -h`
 
-**命令**：`python webmain_debug.py -d vuln_domains.txt`
+## 更新
 
-**使用介绍**：
+项目地址：https://github.com/cnnetarmy/SRCHunter
 
-与多目标探测不同的是，加入`敏感资产和目录扫描`，
+ - 模块化处理
+ - 参数可控(config.py)
+ - 报告分类/美化/分页
 
-敏感资产使用`常用payloads集合`进行探测，加上生成的`日期备份文件`，程序会先判断404页面的状态，然后对payloads进行遍历探测，
+### 搜索目标文件(-s)
 
-判断条件是返回200，且返回内容大小不等于0，且payload与404界面的返回大小差的绝对值大于5(或者直接两者返回大小不相等)，
+命令：`python cli.py -s target`
 
-程序改版了之前的附加判断条件`如果碰到waf，或者各种非预期的情况，导致跑的payloads返回大于40，这种情况程序会提示有可能碰到waf，并且返回空`，
+默认从`./lib/config.py`文件中，读取变量`targets_path`目录中所有文件名，自动补全
 
-进而增加`探针计数器`，计算结果个数，如果扫描结果很快超过25个，程序会直接结束此次扫描，节省时间，提高效率，
+### 自动模式(-a)
 
-新增加`多级目录敏感资产扫描`，即在原来获取网页所有超链接的前提下，进行目录分割扫描，
+命令：`python cli.py -a target.com`
 
-关于结果中的`Dirscan`是`常用payloads集合扫描`和`多级目录敏感资产扫描`结果去重后的`并集`，
+从内置的接口中自动收集子域名并扫描，根据`config`中`baidu_engine`/`github_engine`判断是否启用搜索引擎，若开启`github_engine`需要`github_cookie`
 
-如果出现`['waf']`，表示`常用payloads集合扫描结果`达到程序设置的默认阀值，
+### 单目标扫描(-u)
 
-如果出现`['more_path']`，表示`多级目录敏感资产扫描结果`达到程序设置的默认阀值，
+命令：`python cli.py -u http://www.target.com`
 
-其他的情况，可直接点击查看验证结果，
+对目标进行域名解析，解析不成功的默认会探测一次80，
 
-Allinks中，如果提示`[more_link]`，意味着页面存在`10`个以上的超链接，
+解析成功的ip扫描自定义端口段(`port_min`,`port_max`)，线程`portscan_thread_num`，端口扫描程序可选`portscan_tcp_engine`和`portscan_icmp_engine`，同样会过滤掉常用端口`filter_ports`，加入了大于1w的`big_ports`，根据`check_big_ports`来判断是否扫描
 
-默认只显示`前25`个字符，直接点击，则可显示详情
+过滤掉黑名单子域名(单一`sub_filter`和列表`sub_filter_list`)和黑名单网页标题(单一`title_filter`和列表`title_filter_list`)
 
-### C段探测
+示例：
+![](./static/images/testphp_scan.jpg)
 
-**命令**：`python webmain_debug.py -cf 192.168.1.1`
+![](./static/images/testphp_report.jpg)
 
-**使用介绍**：
+### 多目标探测(-f)
 
-程序会判断输入ip的合法性，自动生成c段列表，其余同理多目标探测
+命令：`python cli.py -f targets.txt`
 
-### C段扫描
+依赖-s模式搜索的文件，进行探测
 
-**命令**：`python webmain_debug.py -cd 192.168.1.1`
+更新`旁站`的处理，使用字典储存已扫描的`ip`和`open_ports`
 
-**使用介绍**：
+### 多目标扫描(-d)
 
-与C段探测不同的是，加入`敏感资产和目录扫描`，其余同理多目标扫描
+命令：`python cli.py -d targets.txt`
 
-## 异常处理
+依赖-s模式搜索的文件，进行扫描
 
-总会有各种非预期的情况，导致程序产生异常告警，debug模式默认全部输出异常，正常模式不会输出，
+目录扫描payloads，根据dir_payloads布尔值，加载`dir_payloads_file`
 
-以下是关于程序扫描过程中的异常处理，主要使用`write_file`进行错误日志记录，
+加入小模块`baidu_dir_engine`，根据baidu收录的资产，收集目标目录
 
-- `write_file(ip,'portscan_error')`    记录单个目标扫描出开放90个端口以上的ip
-- `write_file(url,'url2ip_error')`     记录单个目标未获取到ip的url
-- `write_file(url,'output_error')`     记录保存文件时参数编码不合法的url
+并对每个子域名进行`baidu_engine`/`github_engine`搜索引擎存活确认
 
-## 结果保存
+### 单目标(-端口)扫描(-fu)
 
-默认在当前目录下，新建report目录，并且`根据扫描参数`分别保存为`html`文件，
+命令：`python cli.py -fu http://www.target.com`
 
-关于扫描出开放的所有端口，`根据扫描参数`分别保存为`csv`文件，一些特殊端口保存为eg：`mysql_3306.txt`
+不扫描端口，扫描单个站点
 
-异常处理保存
+### 多目标(-端口)扫描(-fd)
 
-linux下建议使用`nohup python webmain_debug.py -d targets.txt &`后台运行，扫描日志见`nohup.out`，结果同上
+命令：`python cli.py -fd targets.txt`
 
-## 免责声明
+不扫描端口，扫描多个站点，适合与`-f`模式结合
 
-`本程序仅供渗透测试从业人员，在授权的情况下参考使用，其他情况使用者自行承担法律责任，与作者无关`
+### C段探测(-cf)
 
-## bug反馈
+命令：`python cli.py -cf x.x.x.x`
 
-QQ：`2069698797`
+根据配置文件`filter_internal_ip`来判断是否探测内网ip，其余同理`-f`，注意配置`baidu_engine`/`github_engine`关闭
 
-Email:`SRCHunter@cnnetarmy.com`
+### C段扫描(-cd)
+
+命令：`python cli.py -cd x.x.x.x`
+
+根据配置文件`filter_internal_ip`来判断是否扫描内网ip，其余同理`-d`，注意配置`baidu_engine`/`github_engine`关闭
+
+### 多目标C段扫描(-cl)
+
+命令：`python cli.py -cl targets.txt`
+
+加入`ip_counter`函数，根据出现次数生成目标C段文件，默认`ip_count_min`为`1`
+
+示例：
+
+![](./static/images/cModule.jpg)
+
+
+## issue
+
+微信(cnnetarmy)
+
+![wechat](http://www.cnnetarmy.com/weixin.png)
