@@ -64,7 +64,7 @@ ip_count_min = 1
 cookie = ''
 
 # Global Referer
-referer = 'https://www.360.net'
+referer = 'http://www.cnnetarmy.com'
 
 # Proxies http
 http_proxies = ''# 127.0.0.1:1080 shadowsocks | socks5://127.0.0.1:1080
@@ -76,7 +76,7 @@ https_proxies = ''# 127.0.0.1:9090 BurpSuite
 github_account = 'srchunter'# srchunter
 
 # Github logged in cookie
-github_cookie = '_ga=GA1.2.605058324.1525746109; _octo=GH1.1.1636350760.1525746110; tz=Asia%2FShanghai; user_session=fcEN04hOypuxHwyWSv5IcU16Csl6_FtIJzu0VhafR0G38nIS; __Host-user_session_same_site=fcEN04hOypuxHwyWSv5IcU16Csl6_FtIJzu0VhafR0G38nIS; logged_in=yes; dotcom_user=opayload; _gat=1; _gh_sess=MWlQRG5RY0w1MEYwU0RwR0ZJUWhxQXFNRmJGaUVNS29XQldQWnlUYmdNcmp1Z2ZDWWV6S01wZVhrMVc1U1JXUk01OVE2amcveGplVzJ6TzhlOVFMNGd3N3hpR0swQ3BjSVl6WTRYY3hHd29NYStIR0RxaWs4MDBYNGpNb2VlWEFEKzdETEQ1QVgxcmlkaXBUdTlVbnVhNy9WNmlvdzdCUWlLbWFXRVpEVzB4dmlCeElqY2p5cCtOb2l1dE9UYVR6UU1sUktqWlo0d21SMjlJRWdkU2N3cnN2NkVLWkZqN09YN1YwbzdwZ0hHWT0tLStraUI5Q3JmYjNvNFBRcURNM3ZIRkE9PQ%3D%3D--8d45a7d5cb022a8ad7ffcc67dab0f107d5611f1f'
+github_cookie = ''
 
 # Baidu_site result
 baidu_domainss = []
