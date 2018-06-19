@@ -1,6 +1,16 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.common import requests_headers,requests_proxies,filter_list,is_domain
+
+from lib.config import github_cookie,sub_filter,github_sub_filter,github_domainss
+
+import re
+import requests
+import urlparse
+import traceback
+
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
 
 def github_site(subdoamin,key_domain):
 	headers = requests_headers()

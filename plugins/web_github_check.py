@@ -1,6 +1,12 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.common import requests_headers,requests_proxies
+
+import requests
+import traceback
+
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
 
 def github_check(subdoamin):
 	'''

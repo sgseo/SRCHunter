@@ -4,7 +4,8 @@
 
 
 import threading, socket, sys, os, Queue
-from lib.config import check_big_ports,big_ports
+import traceback
+from lib.config import check_big_ports,big_ports,port_min,port_max,portscan_thread_num
 
 class ScannerThread(threading.Thread):
     def __init__(self, inq, outq):
@@ -84,6 +85,19 @@ class Scanner:
             scanner.join(0.001)
             scanner.killed = True
         return self.resp
+
+def portscan(ip):
+    '''
+    Scan open port | all ports
+    '''
+    open_ports = []
+    try:
+        scanner = Scanner(from_port=port_min, to_port=port_max,host=ip)
+        open_ports = scanner.scan(search_for='opened',first_match=False, nthreads=portscan_thread_num, send_fn='')
+    except:
+        # print traceback.format_exc()
+        pass
+    return open_ports
 
 # scanner = Scanner(from_port=1, to_port=100,host='176.28.50.165')
 # print scanner.scan(search_for='opened',first_match=False, nthreads=50, send_fn='')

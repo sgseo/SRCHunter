@@ -1,9 +1,18 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.config import filter_urls,filter_ips,filter_ports,title_filter,sub_filter_list,title_filter_list
+from lib.config import openports_maxnum
+from lib.config import output_error_file,title_filter_file,portscan_maxnum_file,url2ip_error_file,sub_filter_file,portscan_opens_file
+
+from lib.common import report_filename,filter_list,url_handle,handle_ext,handle_ext_old,write_file
+from lib.common import url2ip,is_internal_ip
+
+from plugins.portscan_tcp import portscan
 
 from plugins.web_getitle import getitle
 from plugins.web_getallink import getallink
+
+import traceback
 
 def checkFast(url,target,module):
 	'''
@@ -18,7 +27,7 @@ def checkFast(url,target,module):
 			ip,open_ports = url,[]
 			try:
 				ip = url2ip(url)
-				if not is_internal_ip(ip) and ip not in filter_ips.keys():# filter internal_ip | str(ip) not in filter_ips and
+				if not is_internal_ip(ip) and ip not in filter_ips.keys() and ip != '':# filter internal_ip
 					print '[+] Get url2ip: ' + ip
 					open_ports = portscan(ip)
 					write_file(str(ip)+','+str(open_ports).replace('[','').replace(']',''),handle_ext(output_file)+portscan_opens_file)
@@ -34,7 +43,6 @@ def checkFast(url,target,module):
 				pass
 			print '[+] Get open ports: ' + str(open_ports)
 			if open_ports == []:#or 80 not in open_ports
-				print '[!] Get open port lists None. Just scan default port'
 				try:
 					newtitle,code,lenth,content = '','','',''
 					try:

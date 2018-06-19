@@ -1,6 +1,11 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.common import report_filename,url_handle,filter_list,write_file,handle_ext,scandir_again
+
+from lib.config import baidu_engine,github_engine,baidu_dir_engine
+from lib.config import title_filter,title_filter_list
+from lib.config import link_maxnum,dirpaths_maxnum
+from lib.config import output_error_file,title_filter_file
 
 from plugins.web_getitle import getitle
 from plugins.web_getallink import getallink
@@ -9,6 +14,8 @@ from plugins.web_baidu_check import baidu_check
 from plugins.web_github_check import github_check
 from plugins.web_dirscan import dirscan
 from plugins.web_baidu_dir import baidu_dir
+
+import urlparse,traceback
 
 def fastDir(newurl,target,module):
 	'''

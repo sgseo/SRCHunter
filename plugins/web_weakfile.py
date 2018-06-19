@@ -1,6 +1,15 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.common import requests_headers,requests_proxies
+from lib.config import code_flag
+
+import re
+import requests
+import urlparse
+import traceback
+
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
 
 def weakfile(url):
 	'''
@@ -20,7 +29,7 @@ def weakfile(url):
 			try:
 				if count_flag < 5:
 					req = requests.get(url=url+payload,proxies=proxies,verify=False,headers=headers,timeout=5)
-					if req.status_code == 200 and len(req.content) != 0 and len(req.content) not in len_flag:
+					if req.status_code in code_flag and len(req.content) != 0 and len(req.content) not in len_flag:
 						count_flag += 1
 						len_flag.append(len(req.content))
 						print '[+] Get %s%s 200 %s' % (url,payload,len(req.content))

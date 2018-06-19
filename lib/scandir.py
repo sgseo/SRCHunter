@@ -1,6 +1,14 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.config import filter_urls,filter_ips,filter_ports,title_filter,sub_filter_list,title_filter_list
+from lib.config import baidu_engine,github_engine,baidu_dir_engine
+from lib.config import link_maxnum,dirpaths_maxnum,openports_maxnum
+from lib.config import output_error_file,title_filter_file,portscan_maxnum_file,url2ip_error_file,sub_filter_file,portscan_opens_file
+
+from lib.common import report_filename,filter_list,url_handle,handle_ext,handle_ext_old,write_file
+from lib.common import url2ip,is_internal_ip,scandir_again
+
+from plugins.portscan_tcp import portscan
 
 from plugins.web_getitle import getitle
 from plugins.web_getallink import getallink
@@ -9,6 +17,8 @@ from plugins.web_baidu_check import baidu_check
 from plugins.web_github_check import github_check
 from plugins.web_dirscan import dirscan
 from plugins.web_baidu_dir import baidu_dir
+
+import urlparse,traceback
 
 def checkDir(url,target,module):
 	'''
@@ -21,15 +31,16 @@ def checkDir(url,target,module):
 			filter_urls.append(url)
 			ip,open_ports,baidu_status,github_status = url,[],[],[]
 			print '[*] Now scanning: ' + url
-			if baidu_engine:
-				print '[*] Check Baidu site: %s' % urlparse.urlparse(url).hostname
-				baidu_status = baidu_check(url)
-			if github_engine:
-				print '[*] Check Github status: %s' % urlparse.urlparse(url).hostname
-				github_status = github_check(url)
+			if module in ['autoscan','dirscan','single']:# Handle c_ip scan
+				if baidu_engine:
+					print '[*] Check Baidu site: %s' % urlparse.urlparse(url).hostname
+					baidu_status = baidu_check(url)
+				if github_engine:
+					print '[*] Check Github status: %s' % urlparse.urlparse(url).hostname
+					github_status = github_check(url)
 			try:
 				ip = url2ip(url)
-				if not is_internal_ip(ip) and ip not in filter_ips.keys():# filter internal_ip
+				if not is_internal_ip(ip) and ip not in filter_ips.keys() and ip != '':# filter internal_ip
 					print '[+] Get url2ip: ' + ip
 					open_ports = portscan(ip)
 					filter_ips[ip] = open_ports
@@ -46,7 +57,6 @@ def checkDir(url,target,module):
 				pass
 			print '[+] Get open ports: ' + str(open_ports)
 			if open_ports == []:#or 80 not in open_ports
-				print '[!] Get open port lists None. Just scan default port'
 				try:
 					newtitle,code,lenth,content = '','','',''
 					try:
@@ -84,7 +94,7 @@ def checkDir(url,target,module):
 								# print traceback.format_exc()
 								pass
 							baidu_dirs = ''
-							if baidu_dir_engine:
+							if baidu_dir_engine and module in ['autoscan','dirscan','single']:
 								try:
 									baidu_dirs = baidu_dir(command = 'site:%s'%urlparse.urlparse(url).hostname,key_domain = urlparse.urlparse(url).hostname)
 								except Exception,e:
@@ -155,7 +165,7 @@ def checkDir(url,target,module):
 											# print traceback.format_exc()
 											pass
 										baidu_dirs = ''
-										if baidu_dir_engine and count_flag < 1:
+										if baidu_dir_engine and module in ['autoscan','dirscan','single'] and count_flag < 1:
 											count_flag += 1
 											try:
 												baidu_dirs = baidu_dir(command = 'site:%s'%urlparse.urlparse(newurl).hostname,key_domain = urlparse.urlparse(newurl).hostname)

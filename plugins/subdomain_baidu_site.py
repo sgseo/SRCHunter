@@ -1,6 +1,15 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.common import requests_headers,requests_proxies,is_domain
+from lib.config import baidu_domainss
+
+import re
+import requests
+import urlparse
+import traceback
+
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
 
 def baidu_site(key_domain='',sub_domain='',command=''):
 	'''
@@ -47,7 +56,7 @@ def baidu_site(key_domain='',sub_domain='',command=''):
 	except Exception,e:
 		# print traceback.format_exc()
 		pass
-	return check# list(set(baidu_domainss))
+	return check # list(set(baidu_domainss))
 
 if __name__ == '__main__':
 	pass

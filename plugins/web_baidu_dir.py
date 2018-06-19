@@ -1,6 +1,15 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.common import requests_headers,requests_proxies,ranStr
+
+import re
+import requests
+import urlparse
+import traceback
+from urllib import quote
+
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
 
 def baidu_dir(key_domain='',sub_domain='',command=''):
 	'''

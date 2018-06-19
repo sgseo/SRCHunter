@@ -1,6 +1,7 @@
 ﻿#coding:utf-8
 
 import threading,socket,struct,time,os,array,ssl
+import traceback
 
 try:
     _create_unverified_https_context = ssl._create_unverified_context
@@ -75,3 +76,16 @@ class Nscan:
                 if not sendThr.isAlive():
                     break
         return recvFroms & ipPool
+
+def get_ac_ip(ip_list):
+    '''
+    ICMP check alive
+    '''
+    try:
+        s = Nscan()
+        ipPool = set(ip_list)
+        return s.mPing(ipPool)
+    except Exception,e:
+        print '[!] The current user permissions unable to send icmp packets'
+        # print traceback.format_exc()
+        return ip_list

@@ -4,65 +4,43 @@
 app_name = 'SRCHunter'
 
 # Project version
-version = '3.0'
+version = '3.1'
 
-# Filter ports list
-filter_ports = [21,22,23,25,53,110,111,135,139,143,\
-389,445,465,587,843,873,993,995,1080,1433,1521,1723,\
-2181,2375,3306,3389,5432,5631,5900,6379,11211,27017,50070]# 5984
+# subdoamin API engine ON / OFF
+api_engine = True
 
-# Big ports list
-big_ports = [10000,10001,10002,10003,10004,10009,10010,10012,10024,10025,10082,\
-10180,10215,10243,10554,10566,10616,10617,10621,10626,10628,10629,10778,11110,\
-11111,11211,11300,11967,12000,12174,12265,12345,13456,13579,13722,13782,13783,\
-14000,14147,14238,14441,14442,15000,15002,15003,15004,15660,15742,16000,16001,\
-16010,16012,16016,16018,16080,16113,16992,16993,17000,17877,17988,18040,18081,\
-18101,18245,18888,18988,19101,19283,19315,19350,19780,19801,19842,20000,20005,\
-20031,20221,20222,20547,20828,21025,21379,21571,22222,22939,23023,23424,23502,\
-24444,24800,25105,25565,25734,25735,26214,27000,27015,27016,27017,27352,27353,\
-27355,27356,27715,28015,28017,28201,30000,30718,30951,31038,31337,32400,32764,\
-32768,32769,32770,32771,32772,32773,32774,32775,32776,32777,32778,32779,32780,\
-32781,32782,32783,32784,32785,33333,33354,33899,34571,34572,34573,35500,37777,\
-38292,40193,40911,41511,42510,44176,44442,44443,44444,44501,44818,45100,47808,\
-48080,48899,49152,49153,49154,49155,49156,49157,49158,49159,49160,49161,49163,\
-49165,49167,49175,49176,49400,49999,50000,50001,50002,50003,50006,50070,50070,\
-50090,50100,50300,50389,50500,50636,50800,51103,51106,51493,52673,52822,52848,\
-52869,53413,54045,54138,54321,54328,55055,55056,55443,55553,55554,55555,55600,\
-56737,56738,57294,57797,58080,60000,60020,60443,61532,61900,62078,63331,64623,\
-64680,64738,65000,65129,65389]
-
-# Filter url list
-filter_urls = []
-
-# Filter ip dict
-filter_ips = {}
-
-# Global logged in cookie
-cookie = ''
-
-# Global Referer
-referer = 'http://www.cnnetarmy.com'
-
-# Baidu engine ON / OFF
+# subdoamin Baidu engine ON / OFF
 baidu_engine = False# True
 
-# Github engine ON / OFF
+# subdoamin Github engine ON / OFF
 github_engine = False
 
 # Baidu Dirscan engine ON / OFF
 baidu_dir_engine = False
 
 # Filter internal ip
-filter_internal_ip = True
+filter_internal_ip = False
 
 # big ports ON / OFF
 check_big_ports = True
 
-# Baidu_site result
-baidu_domainss = []
+# Dirscan payloads
+dir_payloads = False
 
-# Github url result
-github_domainss = []
+# Dirscan payloads file
+dir_payloads_file = './payloads/dirscan_payloads.txt'
+
+# Dirscan Status code list
+code_flag = [200]# ,301,302,403]
+
+# Portscan thread number
+portscan_thread_num = 200# 800
+
+# Port min
+port_min = 1
+
+# Port max
+port_max = 10000# 65535
 
 # Subdomains filter string | Module (-a)
 sub_filter = '.cnnetarmy.'
@@ -74,13 +52,37 @@ sub_filter_list = ['.whoam1.','.cnnetarmy.','.SRCHunter.']
 title_filter = 'SRCHunter'# baidu|mogujie|weibo|jd|...
 
 # Title filter list
-title_filter_list = ['SRCHunter','Cnnetarmy']#u'中文'
+title_filter_list = ['SRCHunter','Cnnetarmy']#u'中文',u'办事处','Forbidden'
+
+# Title flag list
+title_flag_list = ['admin','system']
+
+# IP count min
+ip_count_min = 1
+
+# Global logged in cookie
+cookie = ''
+
+# Global Referer
+referer = 'https://www.360.net'
 
 # Proxies http
 http_proxies = ''# 127.0.0.1:1080 shadowsocks | socks5://127.0.0.1:1080
 
 # Proxies https
-https_proxies = ''# 127.0.0.1:8080 BurpSuite
+https_proxies = ''# 127.0.0.1:9090 BurpSuite
+
+# Github check login
+github_account = 'srchunter'# srchunter
+
+# Github logged in cookie
+github_cookie = '_ga=GA1.2.605058324.1525746109; _octo=GH1.1.1636350760.1525746110; tz=Asia%2FShanghai; user_session=fcEN04hOypuxHwyWSv5IcU16Csl6_FtIJzu0VhafR0G38nIS; __Host-user_session_same_site=fcEN04hOypuxHwyWSv5IcU16Csl6_FtIJzu0VhafR0G38nIS; logged_in=yes; dotcom_user=opayload; _gat=1; _gh_sess=MWlQRG5RY0w1MEYwU0RwR0ZJUWhxQXFNRmJGaUVNS29XQldQWnlUYmdNcmp1Z2ZDWWV6S01wZVhrMVc1U1JXUk01OVE2amcveGplVzJ6TzhlOVFMNGd3N3hpR0swQ3BjSVl6WTRYY3hHd29NYStIR0RxaWs4MDBYNGpNb2VlWEFEKzdETEQ1QVgxcmlkaXBUdTlVbnVhNy9WNmlvdzdCUWlLbWFXRVpEVzB4dmlCeElqY2p5cCtOb2l1dE9UYVR6UU1sUktqWlo0d21SMjlJRWdkU2N3cnN2NkVLWkZqN09YN1YwbzdwZ0hHWT0tLStraUI5Q3JmYjNvNFBRcURNM3ZIRkE9PQ%3D%3D--8d45a7d5cb022a8ad7ffcc67dab0f107d5611f1f'
+
+# Baidu_site result
+baidu_domainss = []
+
+# Github url result
+github_domainss = []
 
 # Github sudomain filter
 github_sub_filter = ['github','<','>','/','{','}','?','=','@',' ','*',';',']','[',':']
@@ -91,15 +93,6 @@ links_filter = ['.png','javascript','.svg','.jpg','.js','.css','/css?',\
 
 # Email name filter
 emails_filter = ['.png','.svg','.jpg','.gif','.css','.js']
-
-# Portscan thread number
-portscan_thread_num = 100# 800
-
-# Port min
-port_min = 1
-
-# Port max
-port_max = 1000# 65535
 
 # C ip list min
 c_min = 1
@@ -122,20 +115,17 @@ threadnum = 2
 # Month days bak number
 month_bak_num = 3
 
-# Dirscan payloads
-dir_payloads = False
+# Filter url list
+filter_urls = []
 
-# IP count min
-ip_count_min = 1
-
-# Dirscan payloads file
-dir_payloads_file = './payloads/dirscan_payloads.txt'
+# Filter ip dict
+filter_ips = {}
 
 # Targets list
 targets_path = './targets/'
 
 # Report Path
-report_path = './report/'
+report_path = './reports/'
 
 # Portscan maxnum file 
 portscan_maxnum_file = '/portscan_maxnum.txt'
@@ -155,11 +145,30 @@ title_filter_file = '/title_filter.txt'
 # Sub filter file
 sub_filter_file = '/sub_filter.txt'
 
-# Github check login
-github_account = ''# srchunter
+# Filter ports list
+filter_ports = [21,22,23,25,53,110,111,135,139,143,\
+389,445,465,587,843,873,993,995,1080,1433,1521,1723,\
+2181,2375,3306,3389,5432,5631,5900,6379,11211,27017,50070]# 5984
 
-# Github logged in cookie
-github_cookie = ''
+# Big ports list
+big_ports = [10000,10001,10002,10003,10004,10009,10010,10012,10024,10025,10082,\
+10180,10215,10243,10554,10566,10616,10617,10621,10626,10628,10629,10778,11110,\
+11111,11211,11300,11967,12000,12174,12265,12345,13456,13579,13722,13782,13783,\
+14000,14147,14238,14441,14442,15000,15002,15003,15004,15660,15672,15742,16000,16001,\
+16010,16012,16016,16018,16080,16113,16992,16993,17000,17877,17988,18040,18081,\
+18101,18245,18888,18988,19101,19283,19315,19350,19780,19801,19842,20000,20005,\
+20031,20221,20222,20547,20828,21025,21379,21571,22222,22939,23023,23424,23502,\
+24444,24800,25105,25565,25734,25735,26214,27000,27015,27016,27017,27352,27353,\
+27355,27356,27715,28015,28017,28201,30000,30718,30951,31038,31337,32400,32764,\
+32768,32769,32770,32771,32772,32773,32774,32775,32776,32777,32778,32779,32780,\
+32781,32782,32783,32784,32785,33333,33354,33899,34571,34572,34573,35500,37777,\
+38292,40193,40911,41511,42510,44176,44442,44443,44444,44501,44818,45100,47808,\
+48080,48899,49152,49153,49154,49155,49156,49157,49158,49159,49160,49161,49163,\
+49165,49167,49175,49176,49400,49999,50000,50001,50002,50003,50006,50070,50090,\
+50100,50300,50389,50500,50636,50800,51103,51106,51493,52673,52822,52848,52869,\
+53413,54045,54138,54321,54328,55055,55056,55443,55553,55554,55555,55600,56737,\
+56738,57294,57797,58080,60000,60020,60443,61532,61900,62078,63331,64623,64680,\
+64738,65000,65129,65389]
 
 # Report Dirscan data
 str_d = '''

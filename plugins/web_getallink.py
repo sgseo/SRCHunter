@@ -1,6 +1,10 @@
 #coding:utf-8
 
-from lib.common import *
+from lib.common import email_regex,ip_regex,filter_list,ranStr
+from lib.config import links_filter,emails_filter
+
+import re,urlparse,traceback
+from urllib import quote
 
 def getallink(url,content):
 	'''
@@ -39,7 +43,7 @@ def getallink(url,content):
 							check.append(url + i)
 						links.append(link_flag)
 	except Exception,e:
-		# print traceback.format_exc()()
+		# print traceback.format_exc()
 		print '[!] Get regex link error'
 		pass
 	emails_handle = [email[-30:] for email in set(emails_source)]# Filter too lang email

@@ -4,8 +4,6 @@ import os
 import re
 import sys
 import time
-import json
-import glob
 import socket
 import random
 import base64
@@ -13,25 +11,10 @@ import string
 import datetime
 import urlparse
 import traceback
-from urllib import quote
-import requests
 import threading
 from collections import Counter
 
-# from multiprocessing.pool import Pool
-# from functools import partial
-
 from config import *
-
-from plugins.portscan_icmp import *
-
-from plugins.portscan_tcp import *
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
-# Ignore warning
-requests.packages.urllib3.disable_warnings()
 
 def requests_headers():
 	'''
@@ -370,32 +353,6 @@ def ip_counter(filename):
 			c_ips.append(c_ip)
 	return c_ips
 
-def portscan(ip):
-	'''
-	Scan open port | all ports
-	'''
-	open_ports = []
-	try:
-		scanner = Scanner(from_port=port_min, to_port=port_max,host=ip)
-		open_ports = scanner.scan(search_for='opened',first_match=False, nthreads=portscan_thread_num, send_fn='')
-	except:
-		# print traceback.format_exc()
-		pass
-	return open_ports
-
-def get_ac_ip(ip_list):
-	'''
-	ICMP check alive
-	'''
-	try:
-		s = Nscan()
-		ipPool = set(ip_list)
-		return s.mPing(ipPool)
-	except Exception,e:
-		print '[!] The current user permissions unable to send icmp packets'
-		# print traceback.format_exc()
-		return ip_list
-
 def report_filename(target,argmodule,ext='html'):
 	'''
 	Report result to ./report/target/target_timestamp_sys.argv.html
@@ -424,7 +381,3 @@ def report_filename(target,argmodule,ext='html'):
 			output_w.close()
 	output_r.close()
 	return output_file
-
-# if __name__ == '__main__':
-# 	pass
-# 	# print portscan(ip='176.28.50.165')

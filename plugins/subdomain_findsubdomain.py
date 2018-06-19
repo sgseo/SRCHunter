@@ -4,6 +4,9 @@ from bs4 import BeautifulSoup
 import requests
 from lib.common import requests_headers,requests_proxies
 
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
+
 class FindSubDomains(object):
     _base_url = 'https://findsubdomains.com/'
     _modes = {
