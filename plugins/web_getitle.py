@@ -3,15 +3,9 @@
 from lib.common import requests_headers,requests_proxies
 from lib.config import code_flag
 
-import re,sys
+import re
 import requests
 import traceback
-
-# Ignore warning
-requests.packages.urllib3.disable_warnings()
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 def getitle(url):
 	'''

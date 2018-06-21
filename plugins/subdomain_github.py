@@ -9,9 +9,6 @@ import requests
 import urlparse
 import traceback
 
-# Ignore warning
-requests.packages.urllib3.disable_warnings()
-
 def github_site(subdoamin,key_domain):
 	headers = requests_headers()
 	proxies = requests_proxies()

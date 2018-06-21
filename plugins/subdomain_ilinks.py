@@ -3,9 +3,6 @@
 import requests
 import re
 
-# Ignore warning
-requests.packages.urllib3.disable_warnings()
-
 def ilinks(domain=''):
 	domain_names = []
 	burp0_url = "http://i.links.cn/subdomain/"

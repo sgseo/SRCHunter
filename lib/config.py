@@ -52,7 +52,7 @@ sub_filter_list = ['.whoam1.','.cnnetarmy.','.SRCHunter.']
 title_filter = 'SRCHunter'# baidu|mogujie|weibo|jd|...
 
 # Title filter list
-title_filter_list = ['SRCHunter','Cnnetarmy']#u'中文',u'办事处','Forbidden'
+title_filter_list = ['SRCHunter','Cnnetarmy']#u'中文','Forbidden'
 
 # Title flag list
 title_flag_list = ['admin','system']
