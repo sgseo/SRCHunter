@@ -8,6 +8,9 @@ import requests
 import urlparse
 import traceback
 
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
+
 def baidu_site(key_domain='',sub_domain='',command=''):
 	'''
 	Get baidu site:target.com result

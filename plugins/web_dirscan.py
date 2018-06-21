@@ -8,6 +8,9 @@ import requests
 import traceback
 from urllib import quote
 
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
+
 def dirscan(url):
 	'''
 	Webdir weakfile scan with some tricks

@@ -8,6 +8,9 @@ import urlparse
 import traceback
 from urllib import quote
 
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
+
 def baidu_dir(key_domain='',sub_domain='',command=''):
 	'''
 	Get baidu site:target.com dirs result

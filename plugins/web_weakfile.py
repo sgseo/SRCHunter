@@ -8,6 +8,9 @@ import requests
 import urlparse
 import traceback
 
+# Ignore warning
+requests.packages.urllib3.disable_warnings()
+
 def weakfile(url):
 	'''
 	Weakfile scan with some tricks
