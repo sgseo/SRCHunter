@@ -1,7 +1,7 @@
 #coding:utf-8
 
 from lib.common import requests_headers,requests_proxies,ranStr,base64str,open_file# getMonth
-from lib.config import dir_payloads,code_flag
+from lib.config import dir_payloads,code_flag,dir_payloads_file
 
 import re,time
 import requests

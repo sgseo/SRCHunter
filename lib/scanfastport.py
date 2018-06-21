@@ -30,6 +30,7 @@ def checkFast(url,target,module):
 				if not is_internal_ip(ip) and ip not in filter_ips.keys() and ip != '':# filter internal_ip
 					print '[+] Get url2ip: ' + ip
 					open_ports = portscan(ip)
+					filter_ips[ip] = open_ports
 					write_file(str(ip)+','+str(open_ports).replace('[','').replace(']',''),handle_ext(output_file)+portscan_opens_file)
 					if len(open_ports) > openports_maxnum:
 						print '[!] Maybe got port waf'
