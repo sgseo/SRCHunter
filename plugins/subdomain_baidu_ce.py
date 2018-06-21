@@ -3,9 +3,6 @@
 from lib.common import requests_headers,requests_proxies
 import requests,json
 
-# Ignore warning
-requests.packages.urllib3.disable_warnings()
-
 def baidu_ce(key_domain):
 	'''
 	Get key_domain list from ce.baidu.com.
